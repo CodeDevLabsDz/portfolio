@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CodeDevLabs — Freelance Web Developer, Algeria</title>
+<meta name="description" content="Freelance web developer in Algeria. Websites, e-commerce and web apps with SQL Server, React and Next.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E1B2C; --panel:#132239;
+    --line:rgba(232,237,242,0.12); --line-soft:rgba(232,237,242,0.06);
+    --ink:#E8EDF2; --ink-dim:#8FA3B8;
+    --amber:#F2994A; --amber-dim:rgba(242,153,74,0.15);
+    --radius:2px;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:90px;}
+  body{
+    background:
+      radial-gradient(600px circle at var(--mx,50%) var(--my,20%),rgba(242,153,74,0.06),transparent 60%),
+      linear-gradient(var(--line-soft) 1px,transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px) 0 0/48px 48px,
+      var(--navy);
+    color:var(--ink);font-family:"Space Grotesk",sans-serif;line-height:1.55;
+  }
+  a{color:inherit;}
+  .mono{font-family:"IBM Plex Mono",monospace;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  .frame{position:relative;border:1px solid var(--line);margin:16px;}
+  .frame::before,.frame::after,.frame>.tr,.frame>.br{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--ink-dim);opacity:.5;}
+  .frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .frame::after{bottom:-1px;left:-1px;border-right:none;border-top:none;}
+  .frame .tr{top:-1px;right:-1px;border-left:none;border-bottom:none;}
+  .frame .br{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+  header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(14,27,44,0.88);backdrop-filter:blur(6px);z-index:20;}
+  .mark{font-size:15px;font-weight:700;text-decoration:none;}
+  .mark span{color:var(--amber);}
+  nav{display:flex;gap:26px;font-size:13px;}
+  nav a{text-decoration:none;color:var(--ink-dim);position:relative;padding-bottom:3px;}
+  nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--amber);transition:right .2s ease;}
+  nav a:hover,nav a:focus-visible{color:var(--ink);}
+  nav a:hover::after,nav a:focus-visible::after{right:0;}
+
+  .sheet-label{font-size:11px;color:var(--ink-dim);letter-spacing:.04em;margin-bottom:10px;}
+
+  .hero{padding:76px 0 90px;}
+  .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;}
+  .hero h1{font-size:clamp(2.1rem,5vw,3.2rem);font-weight:700;line-height:1.1;letter-spacing:-0.01em;max-width:17ch;}
+  .role-line{color:var(--amber);font-size:1rem;margin-top:18px;min-height:1.5em;}
+  .cursor{display:inline-block;width:1px;height:1em;background:var(--amber);vertical-align:-2px;animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .desc{color:var(--ink-dim);margin-top:14px;max-width:52ch;font-size:.98rem;}
+  .spec{font-size:12px;color:var(--ink-dim);line-height:2;border-left:1px solid var(--line);padding-left:20px;}
+  .spec .v{color:var(--ink);}
+  .spec .ok{color:var(--amber);}
+
+  .cta-row{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+  .btn{display:inline-block;padding:11px 20px;font-size:.9rem;text-decoration:none;border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);background:none;transition:border-color .15s ease,background .15s ease,transform .15s ease;cursor:pointer;font-family:inherit;}
+  .btn.primary{background:var(--amber);color:#0E1B2C;border-color:var(--amber);font-weight:500;}
+  .btn.primary:hover{background:#ffab6e;transform:translateY(-1px);}
+  .btn.primary:disabled{opacity:.6;cursor:wait;transform:none;}
+  .btn:not(.primary):hover,.btn:not(.primary):focus-visible{border-color:var(--ink-dim);}
+
+  .reveal{opacity:0;transform:translateY(14px);animation:revealUp .6s ease forwards;}
+  @keyframes revealUp{to{opacity:1;transform:translateY(0);}}
+
+  section{padding:64px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:34px;gap:20px;}
+  .section-head h2{font-size:1.5rem;font-weight:700;}
+  .section-head .num{font-size:12px;color:var(--ink-dim);}
+
+  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;}
+  .about-grid p{color:var(--ink-dim);max-width:52ch;}
+  .about-grid p+p{margin-top:14px;}
+  .kv{list-style:none;font-size:.92rem;}
+  .kv li{display:grid;grid-template-columns:110px 1fr;gap:12px;border-bottom:1px solid var(--line-soft);padding:9px 0;}
+  .kv li span:first-child{color:var(--ink-dim);}
+
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .service{border:1px solid var(--line);padding:24px;border-radius:var(--radius);transition:border-color .2s ease,transform .2s ease;}
+  .service:hover{border-color:var(--amber);transform:translateY(-3px);}
+  .service h3{font-size:1.05rem;}
+  .service p{color:var(--ink-dim);font-size:.9rem;margin-top:8px;}
+
+  .filters{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+  .filter-btn{background:none;border:1px solid var(--line);color:var(--ink-dim);font-family:"IBM Plex Mono",monospace;font-size:12px;padding:7px 14px;border-radius:var(--radius);cursor:pointer;transition:.15s ease;}
+  .filter-btn:hover{color:var(--ink);border-color:var(--ink-dim);}
+  .filter-btn.active{background:var(--amber);color:#0E1B2C;border-color:var(--amber);}
+
+  .project{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line-soft);}
+  .project:last-child{border-bottom:none;}
+  .project.hidden{display:none;}
+  .project .id{color:var(--ink-dim);font-size:12px;padding-top:4px;}
+  .project h3{font-size:1.05rem;margin-bottom:6px;}
+  .project p{color:var(--ink-dim);font-size:.92rem;max-width:58ch;}
+  .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+  .tags span{font-size:11px;color:var(--amber);background:var(--amber-dim);padding:3px 8px;border-radius:var(--radius);}
+
+  .steps{list-style:none;border-left:1px solid var(--line);margin-left:6px;}
+  .steps li{position:relative;padding:0 0 30px 34px;}
+  .steps li:last-child{padding-bottom:0;}
+  .steps li::before{content:"";position:absolute;left:-5px;top:7px;width:9px;height:9px;background:var(--navy);border:1px solid var(--amber);}
+  .steps .n{font-size:11px;color:var(--amber);}
+  .steps h3{font-size:1.05rem;margin-top:2px;}
+  .steps p{color:var(--ink-dim);font-size:.92rem;max-width:56ch;margin-top:4px;}
+
+  .expect{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);}
+  .expect div{padding:24px;border-bottom:1px solid var(--line);}
+  .expect div:nth-child(odd){border-right:1px solid var(--line);}
+  .expect div:nth-last-child(-n+2){border-bottom:none;}
+  .expect h3{font-size:1rem;}
+  .expect p{color:var(--ink-dim);font-size:.9rem;margin-top:6px;}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start;}
+  .contact-grid>div:first-child>p{color:var(--ink-dim);max-width:42ch;}
+  .avail{font-size:12px;color:var(--ink-dim);display:flex;align-items:center;gap:8px;margin-top:20px;}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block;}
+  .contact-list{margin-top:22px;display:flex;flex-direction:column;gap:10px;font-size:.95rem;}
+  .contact-list a{text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;width:fit-content;overflow-wrap:anywhere;}
+  .contact-list a:hover{border-color:var(--amber);color:var(--amber);}
+
+  form{display:flex;flex-direction:column;gap:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:11px;color:var(--ink-dim);font-family:"IBM Plex Mono",monospace;}
+  .field input,.field textarea{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:10px 12px;font-family:inherit;font-size:.92rem;border-radius:var(--radius);resize:vertical;width:100%;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--amber);}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .form-status{font-size:12.5px;min-height:18px;color:var(--ink-dim);}
+  .form-status.ok{color:var(--amber);}
+  .form-status.err{color:#ff8a7a;}
+
+  footer{padding:20px 28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11px;color:var(--ink-dim);flex-wrap:wrap;gap:8px;}
+
+  @media (max-width:720px){
+    .hero-grid,.about-grid,.contact-grid,.services-grid,.expect{grid-template-columns:1fr;gap:28px;}
+    .services-grid{gap:16px;}
+    .expect{gap:0;}
+    .expect div:nth-child(odd){border-right:none;}
+    .expect div:nth-last-child(-n+2){border-bottom:1px solid var(--line);}
+    .expect div:last-child{border-bottom:none;}
+    .spec{border-left:none;padding-left:0;}
+    .project{grid-template-columns:1fr;gap:6px;}
+    nav{gap:18px;}
+    nav a.opt{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal{animation:none;opacity:1;transform:none;}
+    .cursor{animation:none;}
+  }
+  :focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+</style>
+</head>
+<body>
+<div class="frame">
+  <span class="tr"></span><span class="br"></span>
+
+  <header>
+    <a class="mark" href="#top">ABDELATIF DEV <span>( CodeDevLabsDZ )</span></a>
+    <nav>
+      <a href="#work">Work</a>
+      <a class="opt" href="#services">Services</a>
+      <a class="opt" href="#process">Process</a>
+      <a class="opt" href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <section class="hero" id="top" style="border-top:none">
+      <div class="hero-grid">
+        <div>
+          <div class="sheet-label mono reveal" style="animation-delay:.05s">Freelance developer based in Algeria</div>
+          <h1 class="reveal" style="animation-delay:.15s">I build web apps and online stores, from database to screen.</h1>
+          <p class="role-line mono reveal" style="animation-delay:.28s"><span id="roleText"></span><span class="cursor"></span></p>
+          <p class="desc reveal" style="animation-delay:.4s">Five years of development experience, three of them as a freelancer, and a diploma in databases and web development. You work directly with the developer who builds your project, with no agency in between.</p>
+          <div class="cta-row reveal" style="animation-delay:.52s">
+            <a class="btn primary" href="#contact">Start a project</a>
+            <a class="btn" href="#work">See my work</a>
+          </div>
+        </div>
+        <div class="spec mono reveal" style="animation-delay:.3s">
+          Base <span class="v">Algeria</span><br>
+          Development <span class="v">5 years</span><br>
+          Freelance <span class="v">3 years</span><br>
+          Client projects <span class="v">4 delivered</span><br>
+          Status <span class="ok">Open to new projects</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-head"><h2>About me</h2><span class="num mono">01</span></div>
+      <div class="about-grid">
+        <div>
+          <p>I'm a freelance developer who started from the data side: I hold two Technicien Supérieur diplomas, one in databases and one in web development. That is why my projects start with a clean data structure, then a fast, simple interface on top of it.</p>
+          <p>I've delivered a real estate website for the Algerian market, a car rental application with its own backend, an e-commerce store and a gaming website, each for a single client who dealt with me directly. I'm also learning Python and Go to widen what I can offer.</p>
+        </div>
+        <ul class="kv">
+          <li><span>Web</span><span>React, Next.js</span></li>
+          <li><span>Database</span><span>SQL Server</span></li>
+          <li><span>Desktop and native</span><span>Delphi, C++</span></li>
+          <li><span>Learning</span><span>Python, Go</span></li>
+          <li><span>Education</span><span>Technicien Supérieur en Informatique, option Bases de données</span></li>
+          <li><span></span><span>Technicien Supérieur en Informatique, Développement Web</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-head"><h2>What I can build for you</h2><span class="num mono">02</span></div>
+      <div class="services-grid">
+        <div class="service"><h3>Business websites</h3><p>A fast, clear website that presents your company, your products or your listings, and brings you enquiries.</p></div>
+        <div class="service"><h3>Online stores</h3><p>Product catalogue, cart and order management, built so you can run the store yourself after delivery.</p></div>
+        <div class="service"><h3>Web apps with a backend</h3><p>Booking, rental and management applications with user accounts, an admin side and a solid database.</p></div>
+        <div class="service"><h3>Database design</h3><p>Structuring and cleaning your data in SQL Server so your application stays fast and reliable as it grows.</p></div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="section-head"><h2>Selected work</h2><span class="num mono">03</span></div>
+      <div class="filters" aria-label="Filter projects by type">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="apps">Apps</button>
+        <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+        <button class="filter-btn" data-filter="websites">Websites</button>
+      </div>
+
+      <div id="projectList">
+        <div class="project" data-category="websites">
+          <div class="id mono">P.01</div>
+          <div>
+            <h3>Real estate platform, Algeria</h3>
+            <p>A property website for the Algerian market where visitors browse listings, filter by what they need and contact the owner.</p>
+            <div class="tags"><span>Real estate</span><span>Website</span></div>
+          </div>
+        </div>
+        <div class="project" data-category="apps">
+          <div class="id mono">P.02</div>
+          <div>
+            <h3>Car rental application</h3>
+            <p>A rental application with its own backend: vehicle catalogue, reservations and an admin side to manage the fleet.</p>
+            <div class="tags"><span>Application</span><span>Backend</span></div>
+          </div>
+        </div>
+        <div class="project" data-category="ecommerce">
+          <div class="id mono">P.03</div>
+          <div>
+            <h3>Zenvor</h3>
+            <p>An e-commerce website where customers browse products, fill a cart and place orders.</p>
+            <div class="tags"><span>E-commerce</span></div>
+          </div>
+        </div>
+        <div class="project" data-category="websites">
+          <div class="id mono">P.04</div>
+          <div>
+            <h3>Planet Games</h3>
+            <p>A website for a gaming brand, designed to present its catalogue and keep players engaged.</p>
+            <div class="tags"><span>Gaming</span><span>Website</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="section-head"><h2>How we work together</h2><span class="num mono">04</span></div>
+      <ol class="steps">
+        <li><div class="n mono">Step 1</div><h3>You tell me about the project</h3><p>Send me a message with your idea, your goals and any deadline. I reply to ask the right questions.</p></li>
+        <li><div class="n mono">Step 2</div><h3>We agree on scope and price</h3><p>You get a written summary of what will be built, how long it takes and what it costs, before any work starts.</p></li>
+        <li><div class="n mono">Step 3</div><h3>I build it in stages</h3><p>You see progress as it happens and can give feedback early, so there are no surprises at the end.</p></li>
+        <li><div class="n mono">Step 4</div><h3>Testing and delivery</h3><p>I test everything, deploy it, and walk you through how to use and manage it.</p></li>
+        <li><div class="n mono">Step 5</div><h3>Support after launch</h3><p>If something breaks or you need a change, you know exactly who to contact.</p></li>
+      </ol>
+    </section>
+
+    <section id="expect">
+      <div class="section-head"><h2>What you can expect</h2><span class="num mono">05</span></div>
+      <div class="expect">
+        <div><h3>One person, start to finish</h3><p>The developer you talk to is the one who writes the code. Nothing gets lost in the middle.</p></div>
+        <div><h3>Clear communication</h3><p>Plain language, regular updates, and honest answers when something takes longer than planned.</p></div>
+        <div><h3>Solid foundations</h3><p>A well-designed database and clean code, so your project is easy to extend later.</p></div>
+        <div><h3>Fair, upfront pricing</h3><p>You know the scope and the cost before we begin.</p></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head"><h2>Start a project</h2><span class="num mono">06</span></div>
+      <div class="contact-grid">
+        <div>
+          <p>Tell me what you want to build. I read every message and reply by email.</p>
+          <div class="avail"><span class="dot"></span> Open to new projects</div>
+          <div class="contact-list">
+            <a href="mailto:CodeDevLabsDz@Outlook.com">CodeDevLabsDz@Outlook.com</a>
+          </div>
+        </div>
+        <form id="contactForm" novalidate>
+          <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="subject">Subject</label><input id="subject" name="subject" type="text" required></div>
+          <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
+          <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+          <button type="submit" class="btn primary" id="submitBtn">Send message</button>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span>© 2026 CodeDevLabs</span>
+    <span class="mono">Freelance web developer, Algeria</span>
+  </footer>
+</div>
+
+<script>
+  var CONTACT_EMAIL = "CodeDevLabsDz@Outlook.com";
+
+  document.addEventListener("mousemove", function(e){
+    document.body.style.setProperty("--mx", e.clientX + "px");
+    document.body.style.setProperty("--my", e.clientY + "px");
+  }, {passive:true});
+
+  var roles = ["Freelance Web Developer", "React and Next.js Developer", "SQL Server Database Developer"];
+  var roleEl = document.getElementById("roleText");
+  var ri = 0, ci = 0, deleting = false;
+  function tick(){
+    var word = roles[ri];
+    if(!deleting){
+      ci++; roleEl.textContent = word.slice(0, ci);
+      if(ci === word.length){ deleting = true; setTimeout(tick, 1500); return; }
+    } else {
+      ci--; roleEl.textContent = word.slice(0, ci);
+      if(ci === 0){ deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(tick, deleting ? 35 : 65);
+  }
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){ roleEl.textContent = roles[0]; } else { tick(); }
+
+  var filterBtns = document.querySelectorAll(".filter-btn");
+  var projects = document.querySelectorAll(".project");
+  filterBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      filterBtns.forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      var f = btn.dataset.filter;
+      projects.forEach(function(p){ p.classList.toggle("hidden", f !== "all" && p.dataset.category !== f); });
+    });
+  });
+
+  var form = document.getElementById("contactForm");
+  var statusEl = document.getElementById("formStatus");
+  function setStatus(msg, cls){ statusEl.textContent = msg; statusEl.className = "form-status" + (cls ? " " + cls : ""); }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim(),
+      message: form.message.value.trim(),
+      _honey: form._honey.value
+    };
+    if(!data.name || !data.email || !data.subject || !data.message){ setStatus("Please fill in every field.", "err"); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)){ setStatus("Please enter a valid email address.", "err"); return; }
+    if(data._honey){ return; }
+
+    var body = "Name: " + data.name + "\nEmail: " + data.email + "\n\n" + data.message;
+    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(data.subject) + "&body=" + encodeURIComponent(body);
+    setStatus("Your email app is opening with the message ready. Press Send there to deliver it. Nothing opened? Write to " + CONTACT_EMAIL + ".", "ok");
+  });
+</script>
+</body>
+</html>
